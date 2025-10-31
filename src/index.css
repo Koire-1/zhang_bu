@@ -1,0 +1,161 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* 中式八卦太极配色 - 深紫、玫红、金黄 */
+    --background: 280 50% 10%;
+    --foreground: 45 15% 92%;
+
+    --card: 280 40% 15%;
+    --card-foreground: 45 15% 92%;
+
+    --popover: 280 45% 12%;
+    --popover-foreground: 45 15% 92%;
+
+    /* 玫红紫主色调 */
+    --primary: 320 60% 50%;
+    --primary-foreground: 45 15% 95%;
+    
+    /* 深紫辅助色 */
+    --secondary: 280 50% 40%;
+    --secondary-foreground: 45 15% 95%;
+
+    --muted: 280 30% 25%;
+    --muted-foreground: 45 10% 65%;
+
+    /* 金黄色强调 */
+    --accent: 45 95% 55%;
+    --accent-foreground: 280 50% 10%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 45 15% 95%;
+
+    --border: 280 35% 25%;
+    --input: 280 35% 20%;
+    --ring: 45 95% 55%;
+
+    --radius: 0.75rem;
+
+    /* 中式渐变色 */
+    --gradient-mystic: linear-gradient(135deg, hsl(280, 55%, 20%) 0%, hsl(320, 55%, 25%) 50%, hsl(340, 50%, 22%) 100%);
+    --gradient-gold: linear-gradient(135deg, hsl(45, 95%, 55%) 0%, hsl(35, 90%, 50%) 100%);
+    --gradient-purple-red: linear-gradient(180deg, hsl(280, 50%, 15%) 0%, hsl(320, 45%, 18%) 50%, hsl(340, 40%, 20%) 100%);
+    
+    /* 光晕效果 */
+    --glow-gold: 0 0 40px hsla(45, 95%, 55%, 0.5);
+    --glow-purple: 0 0 40px hsla(280, 60%, 50%, 0.4);
+    
+    /* 动画 */
+    --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+}
+
+/* 自定义动画 */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+@keyframes shake-coin {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  25% { transform: translateY(-15px) rotate(-5deg); }
+  50% { transform: translateY(-5px) rotate(5deg); }
+  75% { transform: translateY(-10px) rotate(-3deg); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes bounce-coin {
+  0%, 100% { 
+    transform: translateY(0px);
+  }
+  50% { 
+    transform: translateY(-15px);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply border-border text-foreground;
+    background: var(--gradient-purple-red);
+    background-attachment: fixed;
+    min-height: 100vh;
+    position: relative;
+  }
+
+  /* 八卦太极背景装饰 */
+  body::before {
+    content: "";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    height: 800px;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, hsl(280 50% 20% / 0.4) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: "☯";
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 600px;
+    opacity: 0.03;
+    pointer-events: none;
+    z-index: 0;
+    animation: float 20s ease-in-out infinite;
+  }
+}
+
+/* 工具类 */
+@layer utilities {
+  .text-shadow-glow {
+    text-shadow: 0 0 20px currentColor;
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-glow-pulse {
+    animation: glow-pulse 2s ease-in-out infinite;
+  }
+  
+  .animate-shake-coin {
+    animation: shake-coin 0.6s ease-in-out;
+  }
+  
+  .gradient-text {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  
+  .animate-bounce-coin {
+    animation: bounce-coin 2s ease-in-out infinite;
+  }
+}
